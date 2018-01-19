@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>jQuery焦点图片轮播切换代码 - 站长素材</title>
+{% load static %}
+
+<link rel="stylesheet" href={% static 'app/css/index.css' %}>
+<link rel="stylesheet" href={% static 'app/css/style.css' %}>
+<link rel="stylesheet" href="/static/app/css/xSlider.css">
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src={% static 'app/js/nav.js' %}></script>
+<!-- <script type="text/javascript" src="/static/app/js/xSlider.js"></script> -->
+<style>
+body{background:url(http://www.chugongedu.com/skin/default/images/bg_newbody.gif) top center repeat-y #ededed fixed;}
+*{ margin:0; padding:0; list-style:none;}
+/*#top{position: fixed;top:0px;}*/
+
+
+.yfqh_header{height: 30px;border-top:2px solid #F00;background:#FAF8F8;}
+.yfqh_con_header{width: 1024px;margin:0 auto;}
+
+#container{width: 1024px;margin:0 auto;border:1px solid #EEE;}
+.container{width: 1024px;}
+.list ul{padding-top: 0px;}
+</style>
+</head>
+<body>
+
+
+
+<div id='container' class='box'>
+<div class="slider">
+
+	<div class="slider-img">
+		<ul class="slider-img-ul">
+			<li><img src="http://demo.sc.chinaz.com/Files/DownLoad/webjs1/201705/jiaoben5070/images/slider-1.jpg"></li>
+			<li><img src="http://demo.sc.chinaz.com/Files/DownLoad/webjs1/201705/jiaoben5070/images/slider-2.jpg"></li>
+			<li><img src="http://demo.sc.chinaz.com/Files/DownLoad/webjs1/201705/jiaoben5070/images/slider-3.jpg"></li>
+			<li><img src="images/slider-3.jpg"></li>
+			<li><img src="images/slider-4.jpg"></li>
+			<li><img src="images/slider-5.jpg"></li>
+			<li><img src="images/slider-1.jpg"></li>
+		</ul>
+	</div>
+
+</div>
+
+
+
+</div>
+
+
+
+<script type="text/javascript">
+	window.onload = function ()
+	{
+		var oBox = document.getElementById("box");
+		var oList = oBox.getElementsByTagName("ul")[0];
+		var aImg = oBox.getElementsByTagName("img");
+		var timer = playTimer = null;
+		var index = i = 0;
+		var bOrder = true;
+		var aTmp = [];
+		var aBtn = null;
+		
+		//生成数字按钮
+		for (i = 0; i < aImg.length; i++) aTmp.push("<li>" + (i + 1) + "</li>");
+		
+		//插入元素
+		var oCount = document.createElement("ul");
+		oCount.className = "count";
+		oCount.innerHTML = aTmp.join("");
+		oBox.appendChild(oCount);	
+		aBtn = oBox.getElementsByTagName("ul")[1].getElementsByTagName("li");
+		
+		//初始化状态
+		cutover();
+		
+		//按钮点击切换
+		for (i = 0; i < aBtn.length; i++)
+		{
+			aBtn[i].index = i;
+			aBtn[i].onmouseover = function ()
+			{
+				index = this.index;
+				cutover()
+			}
+		}
+		
+		function cutover()
+		{
+			for (i = 0; i < aBtn.length; i++) aBtn[i].className = "";
+			aBtn[index].className = "current";			
+			startMove(-(index * aImg[0].offsetHeight))
+		}
+		
+		function next()
+		{
+			bOrder ? index++ : index--;
+			index <= 0 && (index = 0, bOrder = true);
+			index >= aBtn.length - 1 && (index = aBtn.length - 1, bOrder = false)
+			cutover()
+		}
+		
+		playTimer = setInterval(next, 5000);
+		
+		//鼠标移入展示区停止自动播放
+		oBox.onmouseover = function ()
+		{
+			clearInterval(playTimer)
+		};
+		
+		//鼠标离开展示区开始自动播放
+		oBox.onmouseout = function ()
+		{
+			playTimer = setInterval(next, 5000)
+		};
+		function startMove(iTarget)
+		{
+			clearInterval(timer);
+			timer = setInterval(function ()
+			{
+				doMove(iTarget)
+			}, 30)	
+		}
+		function doMove (iTarget)
+		{		
+			var iSpeed = (iTarget - oList.offsetTop) / 10;
+			iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);		
+			oList.offsetTop == iTarget ? clearInterval(timer) : oList.style.top = oList.offsetTop + iSpeed + "px"
+		}
+	};
+</script>
+
+<script type="text/javascript" src="/static/app/js/xSlider.js"></script>
+<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+<p>适用浏览器：360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. 不支持IE8及以下浏览器。</p>
+<p>来源：<a href="http://sc.chinaz.com/" target="_blank">站长素材</a></p>
+</div>
+</body>
+</html>

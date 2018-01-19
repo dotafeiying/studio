@@ -1,0 +1,15 @@
+python3 manage.py startapp app
+python3 manage.py makemigrations polls
+python3 manage.py runserver 0.0.0.0:8000
+python3 manage.py migrate
+python3 manage.py sqlmigrate myapp 0002
+python3 manage.py createsuperuser
+
+python3 manage.py dbshell
+python3 manage.py sqlmigrate app 0001
+ALTER TABLE file ADD COLUMN `name` varchar(100) NOT NULL;
+
+pip3 install xadmin
+pip3 install git+git://github.com/sshwsfc/xadmin.git
+
+ALTER TABLE app_category ADD COLUMN `slug` varchar(256) NOT NULL;

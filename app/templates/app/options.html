@@ -1,0 +1,42 @@
+{% extends "app/base.html" %}
+ 
+{% block title %}扬帆起航-{{ article_list.0.category }}
+{% endblock %}
+
+{%  block extend_style %}
+{% load static %}
+<link href="{% static "app/css/main.css" %}" rel="stylesheet">
+<link href="{% static "app/Font-Awesome/css/font-awesome.min.css" %}" rel="stylesheet">
+<!-- <link href="{% static "app/font-awesome-4.7.0/css/font-awesome.min.css" %}" rel="stylesheet"> -->
+<!-- <link rel="stylesheet" type="text/css" href="{% static "app/bootstrap-3.3.7/css/bootstrap.min.css" %}"> -->
+{% endblock %}
+
+{% block content %}
+
+<div class="contain">
+    <!-- 侧边栏 -->
+    {% include "app/sidebar.html" %}
+
+    <div class="listr right">
+        <h2><span class="location">您现在的位置: <a href="{% url 'index' %}">首页</a>>><a href="{% url 'app:options' article_list.0.category.slug %}">{{ article_list.0.category.name }}</a></span>公司新闻</h2>
+        {% for articles in article_category_list %}
+        <div class="article_list">
+            <h3><span><a href="{% url 'app:list' articles.0.category.slug articles.0.type.slug %}" class="more">更多..</a></span>{{ articles.0.type }}</h3>
+            <ul>
+              {% for article in articles %}
+              <li><a href="{% url 'app:detail' article.category.slug article.type.slug article.pk %}"><span>{{ article.created_time | date:"Y-m-d" }}</span>{{ article.title }}</a></li>
+              {% endfor %}
+              <!-- <li><a href="/"><span>2011-1-29</span>找知识找工具找帮助找朋友--会计助手应有尽有 <b>[图]</b></a></li>
+              <li><a href="/"><span>2011-1-29</span>关于畅捷通T3产品价格调整的通知 <b>[图]</b></a></li>
+              <li><a href="/"><span>2011-1-29</span>用了工贸宝，生产销售都管好---广安思衡携手用友软件举办专题培训会</a></li>
+              <li><a href="/"><span>2011-1-29</span>有爱在心，我是畅捷通 <b>[图]</b></a></li>
+              <li><a href="/"><span>2011-3-2</span>招聘 </a></li>
+              <li><a href="/"><span>2011-1-29</span>广安用友软件营销服务中心--思衡公司春节放假安排 </a></li> -->
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="blank"></div>
+
+</div>
+{% endblock %}

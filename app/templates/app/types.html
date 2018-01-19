@@ -1,0 +1,66 @@
+{% extends "app/base.html" %}
+ 
+{% block title %}扬帆起航-列表
+{% endblock %}
+
+{%  block extend_style %}
+{% load static %}
+<link href="{% static "app/css/main.css" %}" rel="stylesheet">
+<link href="{% static "app/Font-Awesome/css/font-awesome.min.css" %}" rel="stylesheet">
+<!-- <link href="{% static "app/font-awesome-4.7.0/css/font-awesome.min.css" %}" rel="stylesheet"> -->
+<link rel="stylesheet" type="text/css" href="{% static "app/bootstrap-3.3.7/css/bootstrap.min.css" %}">
+{% endblock %}
+
+{%  block extend_js %}
+<script type="text/javascript" src="{% static "app/bootstrap-3.3.7/js/bootstrap.min.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+
+
+
+
+
+<div class="container">
+    <div>
+        {% load paginate_tags %}
+        {% paginate article_list 10 %}
+        {% for article in article_list %}
+        <div>
+            <h2>
+                <a href="{% url 'app:detail' article.category.slug article.type.slug article.pk %}">{{ article.title }}</a>
+            </h2>
+            <p><span class="glyphicon glyphicon-time"></span> {{ article.created_time }}
+                <a href='{% url 'app:detail' article.category.slug article.type.slug article.pk %}' class='btn btn-link'><span class="glyphicon glyphicon-eye-open"></span> 阅读({{ article.views }})</a>
+                <a href='{% url 'app:detail' article.category.slug article.type.slug article.pk %}#comment' class='btn btn-link'><span class="glyphicon glyphicon-comment"></span> 评论数({{ article.comments }})</a>
+            </p>
+            <!-- <hr> -->
+            <p>{{ article.body | safe | truncatewords_html:10}}</p>
+        </div>
+
+        <hr>
+        {% endfor %}
+    </div>
+
+    <div>
+        <ul class='pagination'>
+            {% if article_list.has_previous %}
+                <li><a href="?page={{ article_list.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <!-- <li><a class="'disabled">&laquo;</a></li> -->
+            {% endif %}
+
+
+            {% for page in pages %}
+                <li {% ifequal forloop.counter current_page %} class="active" {% endifequal %}><a href="?page={{ page }}">{{ page }}</a></li>
+            {% endfor %}
+
+            {% if article_list.has_next %}
+                <li><a href="?page={{ article_list.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <!-- <li><a class="'disabled">&raquo;</a></li> -->
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+﻿<div class="listl left">
+        <div class="box1">
+            <h1>最新招考信息 {% if article_list %}- {{ article_list.0.category }} {% endif %}</h1>
+            <div class="list">
+                <ul>
+                	{% for article in news_list %}
+                	<li><a href="{% url 'app:detail' article.category.slug article.type.slug article.pk %}" title="{{ article.title }}">{{ article.title }}</a></li>
+                	{% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="box1">
+            <h1>推荐文章 {% if article_list %}- {{ article_list.0.category }} {% endif %}</h1>
+            <div class="list">
+                <ul class="topn">
+                	{% for article in top_articles %}
+                	<li><a href="{% url 'app:detail' article.category.slug article.type.slug article.pk %}" title="{{ article.title }}">{{ article.title }}</a></li>
+                	{% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="box1">
+            <h1>历年真题 {% if article_list %}- {{ article_list.0.category }} {% endif %}</h1>
+            <div class="list">
+                <ul>
+                	{% for article in exam_list %}
+                	<li><a href="{% url 'app:detail' article.category.slug article.type.slug article.pk %}" title="{{ article.title }}">{{ article.title }}</a></li>
+                	{% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery可控制二级导航方向代码 - 站长素材</title>
+
+{% load static %}
+<!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href={% static 'app/css/index.css' %}>
+<link rel="stylesheet" href={% static 'app/css/style.css' %}>
+<link rel="stylesheet" href={% static 'app/css/xSlider.css' %}>
+<!-- <link rel="stylesheet" href={% static 'app/css/default.css' %}> -->
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<!-- <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+<script src={% static 'app/js/nav.js' %}></script>
+<script src={% static 'app/js/silder.js' %}></script>
+<script src={% static 'app/js/jquery.SuperSlide.2.1.1.js' %}></script>
+
+
+
+
+<style>
+body{background:url(http://www.chugongedu.com/skin/default/images/bg_newbody.gif) top center repeat-y #ededed fixed;}
+*{ margin:0; padding:0; list-style:none;}
+/*#top{position: fixed;top:0px;}*/
+
+
+.yfqh_header{height: 30px;border-top:2px solid #F00;background:#FAF8F8;}
+.yfqh_con_header{width: 1024px;margin:0 auto;}
+
+#container{width: 1024px;margin:0 auto;border:1px solid #EEE;}
+.container{width: 1024px;}
+.list ul{padding-top: 0px;}
+
+
+
+</style>
+<style>
+/* 焦点图 */
+.focusBox { float:left; position: relative; width: 300px; height: 235px; overflow: hidden; font-family:Arial; text-align: left; background:#fff; }
+.focusBox .pic img { width: 300px; height: 235px; display: block; }
+.focusBox .txt-bg { position: absolute; bottom: 0; z-index: 1; height: 36px; width:100%;  background: #333; filter: alpha(opacity=40); opacity: 0.4; overflow: hidden; }
+.focusBox .txt { position: absolute; bottom: 0; z-index: 2; height: 36px; width:100%; overflow: hidden; }
+.focusBox .txt li{ height:36px; line-height:36px; position:absolute; bottom:-36px;}
+.focusBox .txt li a{ display: block; color: white; padding: 0 0 0 10px; font-size: 12px; font-weight: bold; text-decoration: none; }
+.focusBox .num { position: absolute; z-index: 3; bottom: 8px; right: 8px; }
+.focusBox .num li{ float: left; position: relative; width: 18px; height: 15px; line-height: 15px; overflow: hidden; text-align: center; margin-right: 1px; cursor: pointer; }
+.focusBox .num li a,.focusBox .num li span { position: absolute; z-index: 2; display: block; color: white; width: 100%; height: 100%; top: 0; left: 0; text-decoration: none; }
+.focusBox .num li span { z-index: 1; background: black; filter: alpha(opacity=50); opacity: 0.5; }
+.focusBox .num li.on a,.focusBox .num a:hover{ background:#f60;  }
+</style>
+</head>
+<body>
+
+<div id='top'>
+	<div class='yfqh_header'>
+		<div class='yfqh_con_header'>
+			<a href="#">我是头部</a>
+			<a href="/logout">退出登录</a>
+		</div>
+	</div>
+	<!-- 导航菜单 -->
+	<div id="top_bg">
+		<div class="top">
+		<!-- <a class="logo_l" href="/" title="返回首页"></a> -->
+			<!--导航开始-->
+			
+			<div class="nav_z">
+				<ul id="navul" class="cl">
+					<li>
+						<a href="#">首页</a>
+						<ul>
+							<li><a href="#">企业文化</a></li>
+							<li><a href="#">企业资质</a></li>
+							<li><a href="#">服务团队</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">扬帆教育简介</a>
+						<ul>
+							<li><a href="#">企业文化</a></li>
+							<li><a href="#">企业资质</a></li>
+							<li><a href="#">服务团队</a></li>
+						</ul>
+					</li>
+
+					{% for category in category_list %}
+					<li>
+						<a href="{{ category.slug }}">{{ category.name }}</a>
+						<ul>
+							{% for type in type_list %}
+							<li><a href="{{ category.slug }}/{{ type.slug }}">{{ type.name }}</a></li>
+							{% endfor %}
+						</ul>
+					</li>
+					{% endfor %}
+
+				</ul>
+			</div><!--导航结束-->
+			<script  type="text/javascript"> 
+			$(".navbg").capacityFixed();
+			</script>
+		</div>
+	</div>
+</div>
+
+<div id='container' class='box'>
+		<!-- 轮播图 -->
+		<div class="slider">
+			<div class="slider-img">
+				<ul class="slider-img-ul">
+					<li><img src="http://demo.sc.chinaz.com/Files/DownLoad/webjs1/201705/jiaoben5070/images/slider-5.jpg"></li>
+					<li><img src="http://demo.sc.chinaz.com/Files/DownLoad/webjs1/201705/jiaoben5070/images/slider-1.jpg"></li>
+					<li><img src="http://demo.sc.chinaz.com/Files/DownLoad/webjs1/201705/jiaoben5070/images/slider-2.jpg"></li>
+					<li><img src="http://demo.sc.chinaz.com/Files/DownLoad/webjs1/201705/jiaoben5070/images/slider-3.jpg"></li>
+					<li><img src="http://demo.sc.chinaz.com/Files/DownLoad/webjs1/201705/jiaoben5070/images/slider-4.jpg"></li>
+					<li><img src="http://demo.sc.chinaz.com/Files/DownLoad/webjs1/201705/jiaoben5070/images/slider-5.jpg"></li>
+					<li><img src="http://demo.sc.chinaz.com/Files/DownLoad/webjs1/201705/jiaoben5070/images/slider-1.jpg"></li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- 正文 -->
+		<div class="news left">
+		    <h2><span class="more"><a href="/" target="_blank">更多..</a></span>招考资讯</h2>
+		    <ul>
+		      <div class="pic_news left">
+
+		      	<div class="focusBox">
+					<ul class="pic">
+						{% for picture in xyfc_list %}
+						<li><img src="/media/{{ picture.picture }}"/></li>
+						{% endfor %}		
+					</ul>
+					<div class="txt">
+						<ul>
+							{% for picture in xyfc_list %}
+							<li><a href="#">{{ picture.title }}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+					<ul class="num">
+						<li><a>1</a><span></span></li>
+						<li><a>2</a><span></span></li>
+						<li><a>3</a><span></span></li>
+						<li><a>4</a><span></span></li>
+					</ul>
+				</div>
+				<script type="text/javascript">
+				jQuery(".focusBox").slide({ titCell:".num li", mainCell:".pic",effect:"fold", autoPlay:true,
+					startFun:function(i){
+						jQuery(".focusBox .txt li").eq(i).animate({"bottom":0}).siblings().animate({"bottom":-36});
+					}
+				});
+				</script>
+
+		      	<!-- <div id="box">
+				  <div class="list">
+				    <ul>
+				    	{% for picture in xyfc_list %}
+				    	<li><img src="/media/{{ picture.picture }}" width="300" height="235"/></li>
+
+				    	{% endfor %}
+				    </ul>
+				  </div>
+				</div> -->
+
+		      </div>
+		      <div class="center_news right">
+		        <section class="c_n_top">
+		          <h3>{{ article_list.0.title }}</h3>
+		          <p>{{ article_list.0.body | truncatechars:55 }}[<a href="{% url 'app:detail' article_list.0.category.slug article_list.0.type.slug article_list.0.pk %}" target="_blank">详情</a>]</p>
+		        </section>
+		        <ul>
+		          <li><a href="{% url 'app:detail' article_list.1.category.slug article_list.1.type.slug article_list.1.pk %}" target="_blank">{{ article_list.1.title }}<img src="/static/app/images/new.gif"></a></li>
+		          <li><a href="{% url 'app:detail' article_list.2.category.slug article_list.2.type.slug article_list.2.pk %}" target="_blank">{{ article_list.2.title }}<img src="/static/app/images/new.gif"></a></li>
+		          <li><a href="{% url 'app:detail' article_list.3.category.slug article_list.3.type.slug article_list.3.pk %}" target="_blank">{{ article_list.3.title }}</a></li>
+		          <li><a href="{% url 'app:detail' article_list.4.category.slug article_list.4.type.slug article_list.4.pk %}" target="_blank">{{ article_list.4.title }}</a></li>
+		          <li><a href="{% url 'app:detail' article_list.5.category.slug article_list.5.type.slug article_list.5.pk %}" target="_blank">{{ article_list.5.title }}</a></li>
+		        </ul>
+		      </div>
+		    </ul>
+		</div>
+		<div class="announce right">
+		    <h2><a href="/">通知公告</a></h2>
+		    <ul>
+		     <marquee onMouseOver="this.stop()" onmouseout="this.start()" scrollamount="2" direction="up" height="240">
+		      <li><a href="/" target="_blank">武陵区农林局执法人员正检查农产品来贸易争端 矛头直指</a></li>
+		      <li><a href="/" target="_blank">“秦台”农产品商标注册 </a></li>
+		      <li><a href="/" target="_blank">美国挑起对华贸易争端 矛头直指</a></li>
+		      <li><a href="/" target="_blank">上海最大农产品批发市场开业海最大农产品批发市场开业贸易争端 矛头直指 </a></li>
+		      <li><a href="/" target="_blank">上海:最大农产品批发市场开业贸易争端 矛头直指 ...</a></li>
+		      <li><a href="/" target="_blank">多重屏障确保食品安全...</a></li>
+		      </marquee>
+		    </ul>
+		</div>
+		<div class="blank"></div>
+
+		<div class="linews left">
+		    <h3><span><a href="{% url 'app:options' gk_list.0.category.slug %}" class="more">更多..</a></span>{{ gk_list.0.category }}</h3>
+		    <ul>
+		      {% for article in gk_list %}
+		          <li><a href="{% url 'app:detail' article.category.slug article.type.slug article.pk %}" target="_blank">{{ article.title }}</a></li>
+		      {% endfor %}
+		    </ul>
+		</div>
+		<div class="linews left ln">
+		    <h3><span><a href="{% url 'app:options' sk_list.0.category.slug %}" class="more">更多..</a></span>{{ sk_list.0.category }}</h3>
+		    <ul>
+		      {% for article in sk_list %}
+		          <li><a href="{% url 'app:detail' article.category.slug article.type.slug article.pk %}" target="_blank">{{ article.title }}</a></li>
+		      {% endfor %}
+		    </ul>
+		</div>
+		<div class="linews right">
+		    <h3><span><a href="{% url 'app:options' xds_list.0.category.slug %}" class="more">更多..</a></span>{{ xds_list.0.category }}</h3>
+		    <ul>
+		      {% for article in xds_list %}
+		          <li><a href="{% url 'app:detail' article.category.slug article.type.slug article.pk %}" target="_blank">{{ article.title }}</a></li>
+		      {% endfor %}
+		    </ul>
+		</div>
+		<div class="blank"></div>
+		<div class="linews left">
+		    <h3><span><a href="{% url 'app:options' sy_list.0.category.slug %}" class="more">更多..</a></span>{{ sy_list.0.category }}</h3>
+		    <ul>
+		      {% for article in sy_list %}
+		          <li><a href="{% url 'app:detail' article.category.slug article.type.slug article.pk %}" target="_blank">{{ article.title }}</a></li>
+		      {% endfor %}
+		    </ul>
+		</div>
+		<div class="linews left ln">
+		    <h3><span><a href="{% url 'app:options' js_list.0.category.slug %}" class="more">更多..</a></span>{{ js_list.0.category }}</h3>
+		    <ul>
+		      {% for article in js_list %}
+		          <li><a href="{% url 'app:detail' article.category.slug article.type.slug article.pk %}" target="_blank">{{ article.title }}</a></li>
+		      {% endfor %}
+		    </ul>
+		</div>
+		<div class="linews right">
+		    <h3><span><a href="{% url 'app:options' cg_list.0.category.slug %}" class="more">更多..</a></span>{{ cg_list.0.category }}</h3>
+		    <ul>
+		      {% for article in cg_list %}
+		          <li><a href="{% url 'app:detail' article.category.slug article.type.slug article.pk %}" target="_blank">{{ article.title }}</a></li>
+		      {% endfor %}
+		    </ul>
+		</div>
+		<div class="blank"></div>
+		<div class="ad"><img src="/static/app/images/ad03.jpg"></div>
+		<div class="blank"></div>
+		<div class="zhishu left">
+		    <h3 style="font-size:14px">备考辅导
+		      <ul id="tab">
+		      	{% for type in type_list %}
+		      	{% if forloop.first %}
+		        <li class="current"><a href="{% url 'app:type' type.slug %}">{{ type.name }}</a></li>
+		        {% else %}
+		        <li><a href="{% url 'app:type' type.slug %}">{{ type.name }}</a></li>
+		        {% endif %}
+		        {% endfor %}
+		      </ul>
+		    </h3>
+		    <section>
+		      <div id="content">
+		      	{% for category in bk_list %}
+		      	{% if forloop.first %}
+		      	<ul style="display:block;">
+		          <div class="zs_pic left"> <img src="/static/app/images/newspic1.jpg"> </div>
+		          <div class="zs_news right">
+		            <ol>
+		              {% for article in category %}
+		              <li><a href="{% url 'app:detail' article.category.slug article.type.slug article.pk %}" target="_blank"><span>{{ article.created_time | date:"Y-m-d" }}</span>{{ article.title }}</a></li>
+		              {% endfor %}
+		            </ol>
+		          </div>
+		        </ul>
+		        {% else %}
+		        <ul>
+		          <div class="zs_pic left"> <img src="/static/app/images/newspic1.jpg"> </div>
+		          <div class="zs_news right">
+		            <ol>
+		              {% for article in category %}
+		              <li><a href="{% url 'app:detail' article.category.slug article.type.slug article.pk %}" target="_blank"><span>{{ article.created_time | date:"Y-m-d" }}</span>{{ article.title }}</a></li>
+		              {% endfor %}
+		            </ol>
+		          </div>
+		        </ul>
+		        {% endif %}
+		        {% endfor %}
+
+		      </div>
+		    </section>
+		</div>
+		<div class="hd right">
+		  <h3>互动交流</h3>
+		  <ul>
+		    <li><a href="/">投诉举报</a></li>
+		    <li><a href="/">局长信箱</a></li>   
+		  </ul>
+		</div>
+	<!-- </div> -->
+
+	<!-- <div class='container'> -->
+		
+	<!-- </div> -->
+</div>
+
+
+
+{% load static %}
+
+<script src={% static 'app/js/xSlider.js' %}></script>
+<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';clear:both;">
+<p>适用浏览器：IE8、360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. </p>
+<p>来源：<a href="http://sc.chinaz.com/" target="_blank">站长素材</a></p>
+</div>
+</body>
+
+</html>

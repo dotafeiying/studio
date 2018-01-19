@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+	{% block title %}{% endblock %}
+</title>
+
+{% load static %}
+<link rel="stylesheet" href={% static 'app/css/index.css' %}>
+<link rel="stylesheet" href={% static 'app/css/style.css' %}>
+<link rel="stylesheet" href={% static 'app/css/xSlider.css' %}>
+{%  block extend_style %}{% endblock %}
+
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src={% static 'app/js/nav.js' %}></script>
+
+<script src={% static 'app/js/jquery.SuperSlide.2.1.1.js' %}></script>
+{%  block extend_js %}{% endblock %}
+
+
+
+<style>
+body{background:url(http://www.chugongedu.com/skin/default/images/bg_newbody.gif) top center repeat-y #ededed fixed;}
+*{ margin:0; padding:0; list-style:none;}
+/*#top{position: fixed;top:0px;}*/
+
+.yfqh_header{height: 30px;line-height: 30px ;border-top:2px solid #F00;background:#fff;}
+.yfqh_con_header{width: 1024px;margin:0 auto;}
+
+#container{
+	width: 1024px;
+	margin:0 auto;
+	/*border:1px solid #EEE;*/
+}
+.container{width: 1024px;}
+.list ul{padding-top: 0px;}
+
+</style>
+
+<style>
+/*页头*/
+.header_left span{
+    margin-right: 30px;
+}
+.header_left a:hover{
+    text-decoration:none;
+}
+.header_right span{
+    /*float: left;*/
+    /*width: 65px;*/
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    margin-left: 20px
+}
+.header_right a{
+    /*float: left;*/
+    /*width: 65px;*/
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+}
+.header_right span a:hover{
+    text-decoration:none;
+}
+
+/*广告*/
+.adl img{width: 505px}
+.adr img{width: 505px}
+/* 焦点图 */
+.focusBox { float:left; position: relative; width: 300px; height: 235px; overflow: hidden; font-family:Arial; text-align: left; background:#fff; }
+.focusBox .pic img { width: 300px; height: 235px; display: block; }
+.focusBox .txt-bg { position: absolute; bottom: 0; z-index: 1; height: 36px; width:100%;  background: #333; filter: alpha(opacity=40); opacity: 0.4; overflow: hidden; }
+.focusBox .txt { position: absolute; bottom: 0; z-index: 2; height: 36px; width:100%; overflow: hidden; }
+.focusBox .txt li{ height:36px; line-height:36px; position:absolute; bottom:-36px;}
+.focusBox .txt li a{ display: block; color: white; padding: 0 0 0 10px; font-size: 12px; font-weight: bold; text-decoration: none; }
+.focusBox .num { position: absolute; z-index: 3; bottom: 8px; right: 8px; }
+.focusBox .num li{ float: left; position: relative; width: 18px; height: 15px; line-height: 15px; overflow: hidden; text-align: center; margin-right: 1px; cursor: pointer; }
+.focusBox .num li a,.focusBox .num li span { position: absolute; z-index: 2; display: block; color: white; width: 100%; height: 100%; top: 0; left: 0; text-decoration: none; }
+.focusBox .num li span { z-index: 1; background: black; filter: alpha(opacity=50); opacity: 0.5; }
+.focusBox .num li.on a,.focusBox .num a:hover{ background:#f60;  }
+
+/* 导航 */
+#header{ margin-bottom:1px;  }
+.logoBar{ width:980px; margin:0 auto; padding: 20px 0;  }
+.logoBar h1{ font: bold  50px/60px Georgia;}
+.logoBar h1 a{ color:#39A4DC;  }
+.logoBar h1 a:hover{ color:#39A4DC; text-decoration:none;   }
+.navBar{ position:relative; z-index:1;  background:#39A4DC; color:#fff; height:40px; line-height:40px;   }
+.nav{ width:1024px; margin:0 auto; font-family:"Microsoft YaHei",SimSun,SimHei;  }
+.nav li{width: 97px;}
+.nav .m{ float:left;  position:relative; border:1px solid #248ec8; border-top:0; border-bottom:0; margin-left:-1px;   }
+.nav a:hover{ text-decoration:none; color:#ff0;   }
+.nav h3{ text-align: center;  font-size:100%; font-weight:normal; font-size:14px; height:40px; overflow:hidden;  }
+.nav h3 a{ display:block; color:#fff;  padding:0 5px; border-left:1px solid #5bb3e1; vertical-align:top;  }
+.nav .on{ border-color:#1F7CAF;   }
+.nav .on h3 a{ background:#1f7caf; color:#ff0; border-color:#1f7caf !important;  }
+.nav .sub{ display:none; /*默认隐藏*/ width:99px; padding:5px 0;   position:absolute; left:-1px; top:40px; background:#1F7CAF; text-align:center;  }
+.nav .sub li{ vertical-align:middle; }
+.nav .sub li a{ height:20px; line-height:20px; padding:4px 0;  display:block; background:url(images/icon.png) 0 9px no-repeat; color:#fff;   }
+.nav .sub li a:hover{ color:#ff0; background:#2595d1;   }
+.nav #m7 h3 a{ border-right:1px solid #5bb3e1;   }
+</style>
+<script type="text/javascript">
+function AddFavorite(sURL, sTitle) {   
+    try {   
+        window.external.addFavorite(sURL, sTitle);   
+    } catch (e) {   
+        try {   
+            window.sidebar.addPanel(sTitle, sURL, "");   
+        } catch (e) {   
+            alert("加入收藏失败，请使用Ctrl+D进行添加");   
+        }   
+    }   
+}     
+  
+function SetHome(obj, vrl) {   
+    try {   
+        obj.style.behavior = 'url(#default#homepage)';   
+        obj.setHomePage(vrl);   
+    } catch (e) {   
+        if (window.netscape) {   
+            try {   
+                netscape.security.PrivilegeManager   
+                        .enablePrivilege("UniversalXPConnect");   
+            } catch (e) {   
+                alert("此操作被浏览器拒绝！\n请在浏览器地址栏输入“about:config”并回车\n然后将 [signed.applets.codebase_principal_support]的值设置为'true',双击即可。");   
+            }   
+            var prefs = Components.classes['@mozilla.org/preferences-service;1']   
+                    .getService(Components.interfaces.nsIPrefBranch);   
+            prefs.setCharPref('browser.startup.homepage', vrl);   
+        }   
+    }   
+}   
+</script>
+
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"0","bdPos":"left","bdTop":"215.5"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+</head>
+<body>
+<!-- <div id="contain"> -->
+	<div id='top'>
+		<div class='yfqh_header'>
+			<div class='yfqh_con_header'>
+				<div class="header_left left">
+					<span><a href="#"><strong>扬帆起航工作室</strong></a></span>
+					<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=843514174&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:843514174:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+				</div>
+				<div class="header_right right">
+					<a href="#" onclick="SetHome(this,window.location)">设为首页</a> | 
+					<a href="#" onclick="AddFavorite(window.location,document.title)">加入收藏</a>
+					<span><a href="/logout">退出登录</a></span>
+				</div>
+
+			</div>
+		</div>
+		<!-- 导航菜单 -->
+		<div id="top_bg">
+			<div class="top">
+			<!-- <a class="logo_l" href="/" title="返回首页"></a> -->
+				
+				<div class="nav_z">
+					<ul id="navul" class="cl">
+						<li>
+							<a href="{% url 'index' %}">首页</a>
+						</li>
+						<li>
+							<a href="{% url 'app:about' %}">扬帆教育简介</a>
+							<ul>
+								<li><a href="#">企业文化</a></li>
+								<li><a href="#">企业资质</a></li>
+								<li><a href="#">服务团队</a></li>
+							</ul>
+						</li>
+
+						{% for category in category_list %}
+						<li>
+							<a href="{% url 'app:options' category.slug %}">{{ category.name }}</a>
+							<ul>
+								{% for type in type_list %}
+								<li><a href="{% url 'app:list' category.slug type.slug %}">{{ type.name }}</a></li>
+								{% endfor %}
+							</ul>
+						</li>
+						{% endfor %}
+
+					</ul>
+				</div>
+				<script  type="text/javascript"> 
+				$(".navbg").capacityFixed();
+				</script>
+			</div>
+		</div>
+		<!-- <div class="navBar">			
+			<ul class="nav clearfix">				
+				<li id="m1" class="m">					
+					<h3><a target="_blank" href="{% url 'index' %}">网站首页</a></h3>				
+				</li>				
+				<li id="m2" class="m">					
+					<h3><a target="_blank" href="http://www.superslide2.com/">扬帆教育简介</a></h3>					
+					<ul class="sub">						
+						<li><a href="#">如何使用</a></li>						
+						<li><a href="#">如何使用</a></li>						
+						<li><a href="#">如何使用</a></li>						
+						<li><a href="#">如何使用</a></li>						
+						<li><a href="#">如何使用</a></li>						
+						<li><a href="#">如何使用</a></li>					
+					</ul>				
+				</li>				
+				{% for category in category_list %}
+				<li class="m {% if category.slug in request.path %} on {% endif %}">
+					<h3><a href="{% url 'app:options' category.slug %}">{{ category.name }}</a></h3>
+					<ul class="sub">
+						{% for type in type_list %}
+						<li><a href="{% url 'app:list' category.slug type.slug %}">{{ type.name }}</a></li>
+						{% endfor %}
+					</ul>
+				</li>
+				{% endfor %}
+			</ul>	
+		</div> -->	
+		<script type="text/javascript">
+			// jQuery(".nav").slide({ type:"menu",  titCell:".m", targetCell:".sub", effect:"slideDown", delayTime:0, triggerTime:100,returnDefault:true  });
+	 	</script>
+
+	</div>
+	<div id="container">
+	{% block content %}{% endblock %}
+
+	{% load static %}
+	</div>
+
+	<script src={% static 'app/js/xSlider.js' %}></script>
+	<!-- <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';clear:both;">
+	<p>适用浏览器：IE8、360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. </p>
+	<p>来源：<a href="http://sc.chinaz.com/" target="_blank">站长素材</a></p>
+	</div> -->
+
+	<footer>
+	  <div class="footnav">
+	    <ul>
+	      <li><a href="/">网站首页</a></li>
+	      <li><a href="/">机构设置</a></li>
+	      <li><a href="/">政策法规</a></li>
+	      <li><a href="/">纪检监察</a></li>
+	      <li><a href="/">政务公开</a></li>
+	      <li><a href="/">下载专区</a></li>
+	      <li><a href="/">办事指南</a></li>
+	    </ul>
+	  </div>
+	  <div class="copyright">
+	    <p>Copyright  2017 All Rights Reserved 版权所有 扬帆起航工作室</p>
+	    <p>地址：广安市广安区恒荣街7号 联系电话：0826-2222962</p>
+	    <p>备案号：蜀11018486号</p>
+	  </div>
+	</footer>
+<!-- </div> -->
+</body>
+{% block script %}{% endblock %}
+
+</html>
