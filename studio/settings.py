@@ -94,7 +94,7 @@ DATABASES = {
 #         'NAME': 'studio',
 #         'USER': 'root',
 #         'PASSWORD': 'password',
-#         'HOST':'10.39.211.198',
+#         'HOST':'localhost',
 #         'PORT':'3306',
 #     }
 # }
